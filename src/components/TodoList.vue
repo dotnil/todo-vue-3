@@ -9,7 +9,7 @@
         </li>
       </ul>
       <input class="todo-list__new" type="text" />
-      <a href="#" class="todo-list__save-new">Save</a>
+      <div><a href="#" class="todo-list__save-new">Save</a></div>
     </div>
   </div>
 </template>
@@ -28,11 +28,15 @@ export default {
 .todo-list {
   font-family: ‘Courier New’, Courier, monospace;
   height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .todo-list__wrapper {
   color: #2c3e50;
   background-color: rgba(255, 255, 255, 0.4);
   padding: 20px;
+  max-width: 50ch;
 }
 .todo-list__header {
   font-weight: normal;
@@ -53,6 +57,8 @@ export default {
 }
 .todo-list__new {
   margin: 20px 0px 20px 0px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .todo-list__save-new {
