@@ -4,12 +4,18 @@
       <h1 class="todo-list__header">Todo List</h1>
 
       <ul class="todo-list__container">
-        <li v-for="todo in todos" :key="todo.name" class="todo-list__item">
-          {{ todo.name }} <a class="todo-list__delete" href="#">×</a>
+        <li v-for="(todo, index) in todos" :key="index" class="todo-list__item">
+          <span
+            class="todo-list__item-name"
+            :class="{ 'todo-list__item-name_completed': todo.done }"
+            @click="toggleTask(index)"
+            >{{ todo.name }}</span
+          >
+          <a class="todo-list__delete" href="#" @click="deleteTask(index)">×</a>
         </li>
       </ul>
-      <input class="todo-list__new" type="text" />
-      <div><a href="#" class="todo-list__save-new">Save</a></div>
+      <input v-model="newTask" class="todo-list__new" />
+      <div><a href="#" class="todo-list__save-new" @click="saveTask">Save</a></div>
     </div>
   </div>
 </template>
@@ -18,7 +24,29 @@
 export default {
   data() {
     return {
-      todos: [{ name: "function" }, { name: "take a rest" }]
+      todos: [
+        { name: "function", done: false },
+        { name: "take a rest", done: false }
+      ],
+      newTask: ""
+    }
+  },
+  methods: {
+    saveTask() {
+      this.todos.push({ name: this.newTask })
+      this.newTask = ""
+    },
+    deleteTask(indexForDeletion) {
+      this.todos = this.todos.filter((_todo, index) => index !== indexForDeletion)
+    },
+    toggleTask(indexForToggle) {
+      this.todos = this.todos.map((todo, index) => {
+        if (index !== indexForToggle) {
+          return todo
+        }
+
+        return { name: todo.name, done: !todo.done }
+      })
     }
   }
 }
@@ -47,10 +75,17 @@ export default {
   padding: 0;
   list-style-position: inside;
 }
+.todo-list__item-name {
+  cursor: pointer;
+}
+.todo-list__item-name_completed {
+  text-decoration: line-through;
+}
 .todo-list__delete {
   font-size: 130%;
   text-decoration: none;
   color: #2c3e50;
+  margin-left: 10px;
 }
 .todo-list__delete:hover {
   color: #9e0020;
