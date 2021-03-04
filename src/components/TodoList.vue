@@ -4,15 +4,14 @@
       <h1 class="todo-list__header">Todo List</h1>
 
       <ul class="todo-list__container">
-        <li v-for="(todo, index) in todos" :key="index" class="todo-list__item">
-          <span
-            class="todo-list__item-name"
-            :class="{ 'todo-list__item-name_completed': todo.done }"
-            @click="toggleTask(index)"
-            >{{ todo.name }}</span
-          >
-          <a class="todo-list__delete" href="#" @click="deleteTask(index)">×</a>
-        </li>
+        <TodoItem
+          v-for="(todo, index) in todos"
+          :key="index"
+          :todo="todo"
+          :index="index"
+          @deleteTask="deleteTask"
+          @toggleTask="toggleTask"
+        />
       </ul>
       <input v-model="newTask" class="todo-list__new" />
       <div><a href="#" class="todo-list__save-new" @click="saveTask">Save</a></div>
@@ -21,7 +20,11 @@
 </template>
 
 <script>
+import TodoItem from "@/components/TodoItem.vue"
 export default {
+  components: {
+    TodoItem
+  },
   data() {
     return {
       todos: [
@@ -74,21 +77,6 @@ export default {
   margin: 0;
   padding: 0;
   list-style-position: inside;
-}
-.todo-list__item-name {
-  cursor: pointer;
-}
-.todo-list__item-name_completed {
-  text-decoration: line-through;
-}
-.todo-list__delete {
-  font-size: 130%;
-  text-decoration: none;
-  color: #2c3e50;
-  margin-left: 10px;
-}
-.todo-list__delete:hover {
-  color: #9e0020;
 }
 .todo-list__new {
   margin: 20px 0px 20px 0px;
