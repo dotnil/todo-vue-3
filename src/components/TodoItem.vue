@@ -1,12 +1,12 @@
 <template>
-  <li class="todo-list__item">
+  <li class="todo-item">
     <span
-      class="todo-list__item-name"
-      :class="{ 'todo-list__item-name_completed': todo.done }"
+      class="todo-item__name"
+      :class="{ 'todo-item__name_completed': todo.done }"
       @click="toggleTask"
       >{{ todo.name }}</span
     >
-    <a class="todo-list__delete" href="#" @click="deleteTask">×</a>
+    <a class="todo-item__delete" href="#" @click="deleteTask">×</a>
   </li>
 </template>
 
@@ -34,19 +34,19 @@ export default {
 </script>
 
 <style>
-.todo-list__item-name {
+.todo-item__name {
   cursor: pointer;
 }
-.todo-list__item-name_completed {
+.todo-item__name_completed {
   text-decoration: line-through;
 }
-.todo-list__delete {
+.todo-item__delete {
   font-size: 130%;
   text-decoration: none;
   color: #2c3e50;
   margin-left: 10px;
 }
-.todo-list__delete:hover {
+.todo-item__delete:hover {
   color: #9e0020;
 }
 </style>
